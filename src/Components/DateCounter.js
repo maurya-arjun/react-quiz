@@ -1,15 +1,36 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
+
+function reducer(state, action) {
+  if (action.type === "inc") return state + 1;
+  if (action.type === "dec") return state - 1;
+  if (action.type === "setCount") return action.payload;
+}
 
 export default function DateCounter() {
   const [step, setStep] = useState(1);
-  const [count, setCount] = useState(0);
+  //   const [count, setCount] = useState(0);
+  const [count, dispatch] = useReducer(reducer, 0);
 
   function handleCountDecrement() {
-    setCount((c) => c - step);
+    // setCount((c) => c - step);
+
+    // dispatch(-1);
+    // dispatch({ type: "dec", payload: -1 });
+    dispatch({ type: "dec" });
   }
 
   function handleCountIncrement() {
-    setCount((c) => c + step);
+    // setCount((c) => c + step);
+
+    // dispatch(1);
+    // dispatch({ type: "inc", payload: 1 });
+    dispatch({ type: "inc" });
+  }
+
+  function defineCount(e) {
+    // setCount(Number(e.target.value));
+
+    dispatch({ type: "setCount", payload: Number(e.target.value) });
   }
 
   function addDays() {
@@ -20,7 +41,7 @@ export default function DateCounter() {
 
   function handleReset() {
     setStep(1);
-    setCount(0);
+    // setCount(0);
   }
 
   return (
@@ -58,7 +79,7 @@ export default function DateCounter() {
           <input
             type="number"
             value={count}
-            onChange={(e) => setCount(Number(e.target.value))}
+            onChange={defineCount}
             className="w-full text-center border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           <button
