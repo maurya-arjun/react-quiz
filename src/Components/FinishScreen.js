@@ -1,6 +1,6 @@
 import React from "react";
 
-function FinishScreen({ points, maxPossiblePoints, heigherscore }) {
+function FinishScreen({ points, maxPossiblePoints, heigherscore, dispatch }) {
   const percentage = (points / maxPossiblePoints) * 100;
 
   let emoji;
@@ -19,6 +19,13 @@ function FinishScreen({ points, maxPossiblePoints, heigherscore }) {
         %)
       </p>
       <p> Heigher score: {heigherscore} points </p>
+
+      <button
+        className="m-2 px-5 py-3 border border-gray-700 rounded-xl"
+        onClick={() => dispatch({ type: "restart" })}
+      >
+        Restart Quiz
+      </button>
     </>
   );
 }
