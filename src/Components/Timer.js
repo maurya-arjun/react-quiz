@@ -1,27 +1,30 @@
 import React, { useEffect } from "react";
+import useQuiz from "../hooks/useQuiz";
 
-const Timer = ({ dispatch, remainingTime }) => {
-  const mins = Math.floor(remainingTime / 60);
-  const seconds = remainingTime % 60;
+const Timer = () => {
+    const { dispatch, remainingTime } = useQuiz();
 
-  useEffect(
-    function () {
-      const id = setInterval(() => {
-        dispatch({ type: "tick" });
-      }, 1000);
+    const mins = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
 
-      return () => clearInterval(id);
-    },
-    [dispatch]
-  );
+    useEffect(
+        function () {
+            const id = setInterval(() => {
+                dispatch({ type: "tick" });
+            }, 1000);
 
-  return (
-    <div className="m-2 px-5 py-3 border border-gray-700 rounded-xl">
-      {mins < 10 && "0"}
-      {mins}: {seconds < 10 && "0"}
-      {seconds}
-    </div>
-  );
+            return () => clearInterval(id);
+        },
+        [dispatch]
+    );
+
+    return (
+        <div className="m-2 px-5 py-3 border border-gray-700 rounded-xl">
+            {mins < 10 && "0"}
+            {mins}: {seconds < 10 && "0"}
+            {seconds}
+        </div>
+    );
 };
 
 export default Timer;
